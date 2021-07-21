@@ -47,32 +47,33 @@ func NewZLogger(develop, formatJSON bool) *ZLogger {
 		MaxBackups: 30,      // 日志文件最多保存多少个备份
 		Compress:   false,   // 是否压缩
 	}
+	var levelEncoder zapcore.LevelEncoder
+	atomicLevel := zap.NewAtomicLevel()
+	var writes []zapcore.WriteSyncer
+	if develop {
+		levelEncoder = zapcore.LowercaseColorLevelEncoder
+		atomicLevel.SetLevel(zap.DebugLevel)
+		writes = append(writes, zapcore.AddSync(os.Stdout))
+	} else {
+		writes = []zapcore.WriteSyncer{zapcore.AddSync(&hook)}
+		levelEncoder = zapcore.LowercaseLevelEncoder
+		atomicLevel.SetLevel(zap.InfoLevel)
+	}
 	encoderConfig := zapcore.EncoderConfig{
 		MessageKey:     "msg",
 		LevelKey:       "level",
-		TimeKey:        "time",
+		TimeKey:        "datetime",
 		NameKey:        "logger",
 		CallerKey:      "file",
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
-		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeLevel:    levelEncoder,
 		EncodeTime:     RFC3339TimeEncoder,
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder, // 短路径编码器
 		EncodeName:     zapcore.FullNameEncoder,
 	}
-	// 设置日志级别
-	atomicLevel := zap.NewAtomicLevel()
-	if develop {
-		atomicLevel.SetLevel(zap.DebugLevel)
-	} else {
-		atomicLevel.SetLevel(zap.InfoLevel)
-	}
-	var writes = []zapcore.WriteSyncer{zapcore.AddSync(&hook)}
-	// 如果是开发环境，同时在控制台上也输出
-	if develop {
-		writes = append(writes, zapcore.AddSync(os.Stdout))
-	}
+
 	var core zapcore.Core
 	if formatJSON {
 		core = zapcore.NewCore(
@@ -95,7 +96,6 @@ func NewZLogger(develop, formatJSON bool) *ZLogger {
 	// 设置初始化字段
 	requestID := GetUUID()
 	field := zap.Fields(zap.String("RequestID", requestID))
-
 	// 构造日志
 	ZapLogger = zap.New(core, caller, development, field)
 
