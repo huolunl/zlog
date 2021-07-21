@@ -1,0 +1,15 @@
+{"level":"info","time":"2021-07-21T13:47:54.182+0800","file":"zlog/logger.go:28","msg":"info","RequestID":"f99686ef-3ad8-4df9-9d22-17240d62977f","Datetime":"2021-07-21 13:47:54.7211"}
+{"level":"warn","time":"2021-07-21T13:47:54.183+0800","file":"zlog/logger.go:43","msg":"warn","RequestID":"f99686ef-3ad8-4df9-9d22-17240d62977f","Datetime":"2021-07-21 13:47:54.7211"}
+{"level":"error","time":"2021-07-21T13:47:54.183+0800","file":"zlog/logger.go:31","msg":"error","RequestID":"f99686ef-3ad8-4df9-9d22-17240d62977f","Datetime":"2021-07-21 13:47:54.7211"}
+{"level":"panic","time":"2021-07-21T13:47:54.183+0800","file":"zlog/logger.go:40","msg":"panic","RequestID":"f99686ef-3ad8-4df9-9d22-17240d62977f","Datetime":"2021-07-21 13:47:54.7211"}
+{"level":"info","time":"2021-07-21 13:54:18.7211","file":"zlog/logger_test.go:14","msg":"aaaa","RequestID":"8853fae6-c15f-4c1d-8f1e-58a8020016e0"}
+{"level":"info","time":"2021-07-21 13:57:04.7211","file":"zlog/logger_test.go:14","msg":"aaaa","RequestID":"67349d94-a91a-4d4c-8cc9-3c431abda6ce"}
+{"level":"info","time":"2021-07-21 13:57:04.7211","file":"zlog/logger_test.go:17","msg":"aaaa","RequestID":"75e8f6d9-707e-4254-9398-a8cdd40d8688"}
+2021-07-21 14:03:18.7212	info	zlog/logger_test.go:14	aaaa	{"RequestID": "67b4660f-b6ef-43d4-89f2-36406332f1db"}
+2021-07-21 14:03:18.7212	info	zlog/logger_test.go:17	aaaa	{"RequestID": "c85240f6-665d-4392-8cfd-f8a52b769311"}
+2021-07-21 14:03:38.7212	info	zlog/logger_test.go:14	aaaa	{"RequestID": "1f4cec08-4526-4dbe-91ce-04732af91a4f"}
+2021-07-21 14:03:38.7212	info	zlog/logger_test.go:17	aaaa	{"RequestID": "db140727-0e20-4548-aa64-5f13446fd06e"}
+2021-07-21 14:03:38.7212	debug	zlog/logger_test.go:18	aaaa	{"RequestID": "db140727-0e20-4548-aa64-5f13446fd06e"}
+2021-07-21 14:07:29.7212	info	zlog/logger_test.go:14	info	{"RequestID": "d88cafe4-c2b3-4cd7-8da4-a003deeacf0b"}
+2021-07-21 14:07:29.7212	info	zlog/logger_test.go:18	info	{"RequestID": "91f9c739-fb7f-4536-a91f-3882b038381b"}
+2021-07-21 14:07:29.7212	debug	zlog/logger_test.go:19	debug	{"RequestID": "91f9c739-fb7f-4536-a91f-3882b038381b"}
