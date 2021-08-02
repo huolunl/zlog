@@ -1,4 +1,4 @@
-module git.cai-inc.com/support/zlog
+module github.com/huolunl/zlog
 
 go 1.16
 
