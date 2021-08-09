@@ -18,7 +18,6 @@ const LAYOUT = "2006-01-02 15:04:05.123"
 
 type ZLogger struct {
 	*zap.Logger
-	RequestID string
 }
 
 func RFC3339TimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
@@ -37,7 +36,7 @@ func encodeTimeLayout(t time.Time, layout string, enc zapcore.PrimitiveArrayEnco
 	enc.AppendString(t.Format(layout))
 }
 
-func NewZLogger(develop, formatJSON bool) *ZLogger {
+func NewZLogger(develop, formatJSON bool, traceID, spanID string) *ZLogger {
 	var ZapLogger *zap.Logger
 	logPath := "stdout.log"
 	hook := lumberjack.Logger{
@@ -94,13 +93,11 @@ func NewZLogger(develop, formatJSON bool) *ZLogger {
 	// 开启文件及行号
 	development := zap.Development()
 	// 设置初始化字段
-	requestID := GetUUID()
-	field := zap.Fields(zap.String("RequestID", requestID))
+	field := zap.Fields(zap.String("trace_id", traceID), zap.String("span_id", spanID))
 	// 构造日志
 	ZapLogger = zap.New(core, caller, development, field)
 
 	return &ZLogger{
-		Logger:    ZapLogger,
-		RequestID: requestID,
+		Logger: ZapLogger,
 	}
 }
